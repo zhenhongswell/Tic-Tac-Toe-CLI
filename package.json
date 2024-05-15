@@ -1,0 +1,19 @@
+{
+  "name": "tic-tac-toe-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhenhongswell/Tic-Tac-Toe-CLI.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhenhongswell/Tic-Tac-Toe-CLI/issues"
+  },
+  "homepage": "https://github.com/zhenhongswell/Tic-Tac-Toe-CLI#readme"
+}
