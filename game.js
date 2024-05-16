@@ -1,10 +1,7 @@
 const EMPTY = "";
 const P1 = "X";
 const P2 = "O";
-const boardSize = 2;
-const currentPlayer = "";
-const state = [[], [], []];
-const position = { row: null, col: null };
+const PLAYERS = [P1, P2];
 function createEmptyBoard() {
   return [
     [EMPTY, EMPTY, EMPTY],
@@ -110,9 +107,17 @@ function isBoardFull(state) {
   return true;
 }
 
-// function checkCols(state){
-//   for
-// }
+function getInitalPlayerIndex() {
+  return 0;
+}
+
+function getPlayerByIndex(index) {
+  return PLAYERS[index];
+}
+
+function getNextPlayerIndex(playerIndex) {
+  return playerIndex === 0 ? 1 : 0;
+}
 
 module.exports = {
   createEmptyBoard,
@@ -121,4 +126,7 @@ module.exports = {
   EMPTY,
   P1,
   P2,
+  getInitalPlayerIndex,
+  getPlayerByIndex,
+  getNextPlayerIndex,
 };

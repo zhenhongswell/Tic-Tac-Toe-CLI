@@ -18,5 +18,8 @@
   "homepage": "https://github.com/zhenhongswell/Tic-Tac-Toe-CLI#readme",
   "devDependencies": {
     "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "readline-sync": "^1.4.10"
   }
 }
