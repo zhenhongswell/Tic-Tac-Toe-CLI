@@ -6,6 +6,7 @@ const {
   P1,
   P2,
   checkWinner,
+  computerBestMove,
 } = require("./game.js");
 
 describe("createEmptyBoard", () => {
@@ -193,5 +194,89 @@ describe("checkWinner", () => {
     ];
     const winner = checkWinner(state);
     expect(winner).toBe("draw");
+  });
+});
+
+describe("computerBestMove", () => {
+  test("winning move 1", () => {
+    const state = [
+      [P1, P1, EMPTY],
+      [P2, P2, EMPTY],
+      [EMPTY, EMPTY, EMPTY],
+    ];
+    const move = computerBestMove(P1, state);
+    expect(move).toEqual([0, 2]);
+  });
+  test("winning move 2", () => {
+    const state = [
+      [P1, P2, EMPTY],
+      [P1, P2, EMPTY],
+      [EMPTY, EMPTY, EMPTY],
+    ];
+    const move = computerBestMove(P1, state);
+    expect(move).toEqual([2, 0]);
+  });
+  test("winning move 3", () => {
+    const state = [
+      [P2, EMPTY, P1],
+      [EMPTY, P1, EMPTY],
+      [EMPTY, EMPTY, EMPTY],
+    ];
+    const move = computerBestMove(P2, state);
+    expect(move).toEqual([2, 0]);
+  });
+  test("winning move 4", () => {
+    const state = [
+      [P2, EMPTY, P1],
+      [EMPTY, P1, EMPTY],
+      [P2, EMPTY, EMPTY],
+    ];
+    const move = computerBestMove(P1, state);
+    expect(move).toEqual([1, 0]);
+  });
+  test("winning move 5", () => {
+    const state = [
+      [P2, EMPTY, P1],
+      [P1, P1, EMPTY],
+      [P2, EMPTY, EMPTY],
+    ];
+    const move = computerBestMove(P2, state);
+    expect(move).toEqual([1, 2]);
+  });
+  test("winning move 6", () => {
+    const state = [
+      [P2, EMPTY, P1],
+      [P1, P1, P2],
+      [P2, P1, EMPTY],
+    ];
+    const move = computerBestMove(P2, state);
+    expect(move).toEqual([0, 1]);
+  });
+  test("winning move 7", () => {
+    const state = [
+      [P2, P2, P1],
+      [P1, P1, P2],
+      [P2, P1, EMPTY],
+    ];
+    const move = computerBestMove(P1, state);
+    expect(move).toEqual([2, 2]);
+  });
+  test("winning move 8", () => {
+    const state = [
+      [P1, P1, P2],
+      [P1, P2, EMPTY],
+      [EMPTY, EMPTY, EMPTY],
+    ];
+    const move = computerBestMove(P2, state);
+    expect(move).toEqual([2, 0]);
+  });
+  test("winning move 9", () => {
+    const state = [
+      [P1, P1, P2],
+      [EMPTY, P2, EMPTY],
+      [EMPTY, EMPTY, EMPTY],
+    ];
+    const move = computerBestMove(P1, state);
+    expect(move).toEqual([2, 0]);
   });
 });

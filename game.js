@@ -115,8 +115,68 @@ function getPlayerByIndex(index) {
   return PLAYERS[index];
 }
 
+function getNextPlayer(player) {
+  return player === P1 ? P2 : P1;
+}
+
 function getNextPlayerIndex(playerIndex) {
   return playerIndex === 0 ? 1 : 0;
+}
+
+function computerBestMove(player, board) {
+  const moves = getPossibleMoves(board);
+  const scores = moves.map(([i, j]) => {
+    const [newBoard, success] = updateGame(player, [i, j], board);
+    return computerScore(player, 0, newBoard);
+  });
+  const bestScore = player === P1 ? Math.max(...scores) : Math.min(...scores);
+  const bestScoreIndex = scores.indexOf(bestScore);
+  return moves[bestScoreIndex];
+}
+
+function computerScore(player, depth, board) {
+  // 先寫終止條件
+  const winner = checkWinner(board);
+  if (winner === P1) {
+    // P1 要分數越高越好
+    return 10 - depth;
+  }
+  if (winner === P2) {
+    // P2 要分數越低越好 (負)
+    return depth - 10;
+  }
+  if (winner === "draw") {
+    return 0;
+  }
+
+  // 看下一步的分數
+  const moves = getPossibleMoves(board);
+  const nextPlayer = getNextPlayer(player);
+  const scores = moves.map(([i, j]) => {
+    const [newBoard, success] = updateGame(nextPlayer, [i, j], board);
+    return computerScore(nextPlayer, depth + 1, newBoard);
+  });
+  // 如果下個玩家是P2,最小化分數 (假設對手是聰明的,下最佳化的一步)
+  if (nextPlayer === P2) {
+    return Math.min(...scores);
+  }
+  // 如果下個玩家是P1,最大化分數
+  if (nextPlayer === P1) {
+    return Math.max(...scores);
+  }
+}
+
+function getPossibleMoves(board) {
+  const moves = [];
+  for (let i = 0; i < board.length; i++) {
+    const row = board[i];
+    for (let j = 0; j < row.length; j++) {
+      if (board[i][j] === EMPTY) {
+        moves.push([i, j]);
+      }
+    }
+  }
+  return moves;
 }
 
 module.exports = {
@@ -129,4 +189,5 @@ module.exports = {
   getInitalPlayerIndex,
   getPlayerByIndex,
   getNextPlayerIndex,
+  computerBestMove,
 };
