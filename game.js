@@ -124,6 +124,12 @@ function getNextPlayerIndex(playerIndex) {
 }
 
 function computerBestMove(player, board) {
+  /*
+    1.取得所有可移動的位置
+    2.將所以可移動的位置進行評分 10～-10
+    3.P1:要最大分數,P2:要最小分數
+    4.回傳最佳移動位置
+  */
   const moves = getPossibleMoves(board);
   const scores = moves.map(([i, j]) => {
     const [newBoard, success] = updateGame(player, [i, j], board);
@@ -168,6 +174,7 @@ function computerScore(player, depth, board) {
 
 function getPossibleMoves(board) {
   const moves = [];
+  // console.log("testing " + board.length);
   for (let i = 0; i < board.length; i++) {
     const row = board[i];
     for (let j = 0; j < row.length; j++) {
